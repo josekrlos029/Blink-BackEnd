@@ -1,0 +1,23 @@
+/* 
+    Document   : paciente
+    Created on : 07-may-2014, 16:03:58
+    Author     : JuanMi Martinez
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+#paciente{
+    margin-top: 5%;
+    margin-left: 10%;
+    width: 80%;
+    
+}
+
+#tablaPaciente{
+    border:1px solid #c6c6c6;
+    
+}

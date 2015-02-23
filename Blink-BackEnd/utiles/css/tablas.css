@@ -1,0 +1,50 @@
+/* 
+    Document   : tablas
+    Created on : 19/06/2013, 06:30:42 PM
+    Author     : andy henry
+    Description:
+        Purpose of the stylesheet follows.
+*/
+/* 
+    Document   : tablas
+    Created on : 19/06/2013, 06:30:42 PM
+    Author     : andy henry
+    Description:
+        Purpose of the stylesheet follows.
+*/
+root { 
+    display: block;
+}
+#mitabla{
+/*estilo de el cuerpo de nuestra tabla*/
+background-color: #1e8cbe;
+margin:24px auto;
+font-family:helvetica,arial,sans-serif;
+font-weight:normal;
+text-transform: uppercase;
+}
+#mitabla th{
+/*estilo de los elementos(th)*/
+ background:#69d2e7;
+color:#fff;
+font-weight: normal;
+font-size:12px;
+padding: 8px;
+border-left: 1px solid #ffffff;
+}
+#mitabla td{
+/*estilo a los elementos (td)*/
+width:100px;
+height: 24px;
+border-left: 1px solid #ffffff;
+font-size:12px;
+}
+
+#mitabla tr:nth-child(odd){
+/*para los colores de las filas impares*/
+background-color: #ffffff;
+}
+#mitabla tr:nth-child(even){
+/*para los colores de las filas pares*/
+background:#EDEDED;
+}

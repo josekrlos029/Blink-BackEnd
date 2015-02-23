@@ -1,0 +1,158 @@
+/* 
+    Document   : menu
+    Created on : 27/04/2014, 02:28:08 AM
+    Author     : andy henry
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+.accordion,
+.accordion ul,
+.accordion li,
+.accordion a,
+.accordion span {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+}
+ 
+.accordion li {
+    list-style: none;
+}
+.accordion li > a {
+    display: block;
+    position: relative;
+    min-width: 110px;
+    padding: 0 10px 0 40px;
+    color: #4a5468;
+    font:  14px/32px Arial, sans-serif;
+    text-decoration: none;
+
+}
+.accordion li > a span {
+    display: block;
+    position: absolute;
+    top: 7px;
+    right: 0;
+    padding: 0 10px;
+    margin-right: 10px;
+    font: normal bold 14px/18px Arial, sans-serif;
+    color: #FFFFFF;
+    background: #3bc3f5;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    -webkit-box-shadow: inset 1px 1px 1px rgba(0,0,0, .2), 1px 1px 1px rgba(255,255,255, .1);
+    -moz-box-shadow: inset 1px 1px 1px rgba(0,0,0, .2), 1px 1px 1px rgba(255,255,255, .1);
+    box-shadow: inset 1px 1px 1px rgba(0,0,0, .2), 1px 1px 1px rgba(255,255,255, .1);
+}
+.accordion > li > a:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '';
+    width: 24px;
+    height: 24px;
+    margin: 4px 8px;
+    background-repeat: no-repeat;
+    background-image: url(../image/iconos.png);
+    background-position: 0px 0px;
+}
+
+.accordion li.clientes > a:before { background-position: 0px 0px; }
+.accordion li.clientes:hover > a:before,
+.accordion li.clientes:target > a:before { background-position: 0px -24px; }
+
+.accordion li.citas > a:before { background-position: 0px -48px; }
+.accordion li.citas:hover > a:before,
+.accordion li.citas:target > a:before { background-position: 0px -72px; }
+
+.accordion li.empleados > a:before { background-position: 0px -96px; }
+.accordion li.empleados:hover > a:before,
+.accordion li.empleados:target > a:before { background-position: 0px -120px; }
+
+.accordion li.productos > a:before { background-position: 0px -144px; }
+.accordion li.productos:hover > a:before,
+.accordion li.productos:target > a:before { background-position: 0px -168px; }
+
+.accordion li.servicio > a:before { background-position: 0px -192px; }
+.accordion li.servicio:hover > a:before,
+.accordion li.servicio:target > a:before { background-position: 0px -216px; }
+
+.accordion li.factura> a:before { background-position: 0px -240px; }
+.accordion li.factura:hover > a:before,
+.accordion li.factura:target > a:before { background-position: 0px -264px; }
+
+.accordion li.consulta> a:before { background-position: 0px -288px; }
+.accordion li.consulta:hover > a:before,
+.accordion li.consulta:target > a:before { background-position: 0px -312px; }
+
+.sub-menu li a {
+   color: #00a8c5;
+   background: #d7dbde;
+}
+ 
+.sub-menu li:last-child a { border: none; }
+ 
+.sub-menu li > a span {
+    color: #ffffff;
+    text-shadow: 1px 1px 0px rgba(255,255,255, .2);
+    background:#d7dbde;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+ 
+.sub-menu em {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: 14px;
+    color: #1b1e24;
+    font: normal 10px/32px Arial, sans-serif;
+}
+.accordion > li:hover > a,
+.accordion > li:target > a {
+    color: #ffffff;
+    text-shadow: 1px 1px 1px rgba(255,255,255, .2);    
+    background: #0090d9; 
+}
+ 
+.accordion > li:hover > a span,
+.accordion > li:target > a span {
+    color: #fdfdfd;
+    text-shadow: 0px 1px 0px rgba(0,0,0, .35);
+    background: #3e5706;
+}
+ 
+.sub-menu li:hover a {
+    background: #d7dbde; 
+    color:#272c35; 
+    font-size:15px;  
+    text-shadow:0px 1px 0px rgba(0,0,0, .35);
+     -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    
+}
+
+
+.accordion li > .sub-menu {
+    height: 0;
+    overflow: hidden;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+ 
+.accordion li:target > .sub-menu {
+    height: 98px;
+}
