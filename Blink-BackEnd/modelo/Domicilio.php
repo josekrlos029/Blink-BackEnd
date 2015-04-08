@@ -33,7 +33,26 @@ class Domicilio extends Modelo{
     private $ciudad;
     private $idMensajero;
     private $idCentral;
+    private $nombre;
+    private $regid;
     
+    function getNombre() {
+        return $this->nombre;
+    }
+
+    function getRegid() {
+        return $this->regid;
+    }
+
+    function setNombre($nombre) {
+        $this->nombre = $nombre;
+    }
+
+    function setRegid($regid) {
+        $this->regid = $regid;
+    }
+
+        
     public function getIdDomicilio() {
         return $this->idDomicilio;
     }

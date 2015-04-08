@@ -34,7 +34,26 @@ class Servicio extends Modelo{
     private $express= "e";
     private $programado= "e";
     private $idMensajero;
+    private $nombre;
+    private $regid;
     
+    function getNombre() {
+        return $this->nombre;
+    }
+
+    function getRegid() {
+        return $this->regid;
+    }
+
+    function setNombre($nombre) {
+        $this->nombre = $nombre;
+    }
+
+    function setRegid($regid) {
+        $this->regid = $regid;
+    }
+
+        
     public function getIdServicio() {
         return $this->idServicio;
     }
@@ -218,6 +237,12 @@ class Servicio extends Modelo{
         if (array_key_exists('idMensajero', $props)) {
             $servicio->setIdMensajero($props['idMensajero']);
         }
+        if (array_key_exists('nombre', $props)) {
+            $servicio->setNombre($props['nombre']);
+        }
+        if (array_key_exists('regid', $props)) {
+            $servicio->setRegid($props['regid']);
+        }
     }
 
     private function getParametros(Servicio $servicio) {
@@ -236,14 +261,17 @@ class Servicio extends Modelo{
             ':destino' => $servicio->getDestino(),
             ':descripcion' => $servicio->getDescripcion(),
             ':tipo' => $servicio->getTipo(),
-            ':idCentral' => $servicio->getIdCentral()
+            ':idCentral' => $servicio->getIdCentral(),
+            ':nombre' => $servicio->getNombre(),
+            ':regid' => $servicio->getRegid()
                 
         );
         return $parametros;
     }
 
     public function crearServicio(Servicio $sericio) {
-        $sql = "INSERT INTO servicio (idUsuario, estado, fecha, hora, lat, lng, direccion, referencia, servicio, telefono, destino, descripcion, tipo, idCentral) VALUES (:idUsuario, :estado, :fecha, :hora, :lat, :lng, :direccion, :referencia, :servicio, :telefono, :destino, :descripcion, :tipo, :idCentral)";
+        $sql = "INSERT INTO servicio (idUsuario, estado, fecha, hora, lat, lng, direccion, referencia, servicio, telefono, destino, descripcion, tipo, idCentral, nombre, regid) "
+                . "VALUES (:idUsuario, :estado, :fecha, :hora, :lat, :lng, :direccion, :referencia, :servicio, :telefono, :destino, :descripcion, :tipo, :idCentral, :nombre, :regid)";
         $this->__setSql($sql);
         $this->ejecutar($this->getParametros($sericio));
     }

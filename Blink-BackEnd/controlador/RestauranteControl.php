@@ -312,40 +312,34 @@ echo "Exito";
 
     public function registrarDomicilio() {
         try {
-            $idUsuario = isset($_POST['idUsuario']) ? $_POST['idUsuario'] : NULL;
+            $idUsuario = isset($_POST['idUsuario']) ? $_POST['idUsuario'] : 398;
             $idRestaurante = isset($_POST['idRestaurante']) ? $_POST['idRestaurante'] : NULL;
             $direccion = isset($_POST['direccion']) ? $_POST['direccion'] : NULL;
             $referencia = isset($_POST['referencia']) ? $_POST['referencia'] : NULL;
-            $lat = isset($_POST['lat']) ? $_POST['lat'] : NULL;
-            $lng = isset($_POST['lng']) ? $_POST['lng'] : NULL;
+            $lat = isset($_POST['lat']) ? $_POST['lat'] : "1";
+            $lng = isset($_POST['lng']) ? $_POST['lng'] : "1";
             $telefono = isset($_POST['telefono']) ? $_POST['telefono'] : NULL;
             $billete = isset($_POST['billete']) ? $_POST['billete'] : NULL;
-            $ciudad = isset($_POST['ciudad']) ? $_POST['ciudad'] : NULL;
+            $ciudad = isset($_POST['ciudad']) ? $_POST['ciudad'] : "Valledupar";
+            $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : NULL;
+            $regid = isset($_POST['regid']) ? $_POST['regid'] : NULL;
             $arreglo = isset($_POST['arreglo']) ? $_POST['arreglo'] : NULL;
-            $ciudad=trim($ciudad);
-            $array = json_decode($arreglo);
             
+            $array = json_decode($arreglo);
             
             $restaurante = new Restaurante();
             $r = $restaurante->leerPorId($idRestaurante);
             $central = new Central();
-            $centrales= $central->leerCentralesCercanasCiudad($r->getLat(), $r->getLng(), 15, $ciudad);
-            $cen = NULL;
-            foreach ($centrales as $c){
-                $cen = $c;
-                break;
-            }
+            $central= $central->leerPorId(4);
             
-            if($cen == NULL){
+            if($central->getEstado() == 0){
                 echo json_encode(array('msj' => "cerrado"));
             }else{
                 $estado = "pendiente";
                 $fecha = getdate();
                 $fecha = $fecha["year"] . "-" . $fecha["mon"] . "-" . $fecha["mday"];
                 $hora = date("H:i:s");
-                $usuario = new Usuario();
-
-                if ($usuario->leerPorId($idUsuario)) {
+                
                     $domicilio = new Domicilio();
                     $domicilio->setEstado($estado);
                     $domicilio->setIdRestaurante($idRestaurante);
@@ -356,9 +350,12 @@ echo "Exito";
                     $domicilio->setReferencia($referencia);
                     $domicilio->setLat($lat);
                     $domicilio->setLng($lng);
+                    $domicilio->setCiudad($ciudad);
                     $domicilio->setTelefono($telefono);
                     $domicilio->setBillete($billete);
-                    $domicilio->setIdCentral($cen->getIdCentral());
+                    $domicilio->setIdCentral($central->getIdCentral());
+                    $domicilio->setNombre($nombre);
+                    $domicilio->setRegid($regid);
                     $idDomicilio = $domicilio->crearDomicilio($domicilio);
                     if ($idDomicilio) {
 
@@ -374,10 +371,8 @@ echo "Exito";
                         $this->enviarNotificacion(array($cen->getRegid()), "Tienes Un Domicilio Nuevo", '01');
                         
                         echo json_encode(array('msj' => "exito"));
-                        $this->enviarNotificacion(array($r->getRegid()), "Tienes Un Domicilio", "01");
-                    } else {
-                        echo json_encode(array('msj' => "error"));
-                    }
+                        //$this->enviarNotificacion(array($r->getRegid()), "Tienes Un Domicilio", "01");
+                   
                 }
             }
             
@@ -390,21 +385,22 @@ echo "Exito";
     public function registrarServicio() {
         try {
             
-            $idUsuario = isset($_POST['idUsuario']) ? $_POST['idUsuario'] : NULL;
+            $idUsuario = isset($_POST['idUsuario']) ? $_POST['idUsuario'] : 398;
             $direccion = isset($_POST['direccion']) ? $_POST['direccion'] : NULL;
             $referencia = isset($_POST['referencia']) ? $_POST['referencia'] : NULL;
-            $lat = isset($_POST['lat']) ? $_POST['lat'] : NULL;
-            $lng = isset($_POST['lng']) ? $_POST['lng'] : NULL;
-            $serv = isset($_POST['servicio']) ? $_POST['servicio'] : NULL;
+            $lat = isset($_POST['lat']) ? $_POST['lat'] : "1";
+            $lng = isset($_POST['lng']) ? $_POST['lng'] : "1";
+            $serv = isset($_POST['servicio']) ? $_POST['servicio'] : "Servicio";
             $telefono = isset($_POST['telefono']) ? $_POST['telefono'] : NULL;
             $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : NULL;
             $destino = isset($_POST['destino']) ? $_POST['destino'] : NULL;
-            $tipo = isset($_POST['tipo']) ? $_POST['tipo'] : NULL;
+            $tipo = isset($_POST['tipo']) ? $_POST['tipo'] : "e";
             $fecha = isset($_POST['fecha']) ? $_POST['fecha'] : NULL;
             $hora = isset($_POST['hora']) ? $_POST['hora'] : NULL;
-            $ciudad = isset($_POST['ciudad']) ? $_POST['ciudad'] : NULL;
-            $ciudad=trim($ciudad);
-            //echo $ciudad. " ". " ";
+            $ciudad = isset($_POST['ciudad']) ? $_POST['ciudad'] : "Valledupar";
+            $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : NULL;
+            $regid = isset($_POST['regid']) ? $_POST['regid'] : NULL;
+            
             $estado = "p";
             if($tipo == "e"){
                 $fecha = getdate();
@@ -413,43 +409,32 @@ echo "Exito";
             }
             
             $central = new Central();
-            $centrales= $central->leerCentralesCercanasCiudad($lat, $lng, 15, $ciudad);
-            $cen = NULL;
-            foreach ($centrales as $c){
-                $cen = $c;
-                break;
-            }
+            $central= $central->leerPorId(4);
             
-            if($cen == NULL){
+            if($central->getEstado() == 0){
                 echo json_encode(array('msj' => "cerrado"));
             }else{
+                $servicio = new Servicio();
+                $servicio->setEstado($estado);
+                $servicio->setIdUsuario($idUsuario);
+                $servicio->setFecha($fecha);
+                $servicio->setHora($hora);
+                $servicio->setDireccion($direccion);
+                $servicio->setReferencia($referencia);
+                $servicio->setLat($lat);
+                $servicio->setLng($lng);
+                $servicio->setServicio($serv);
+                $servicio->setTelefono($telefono);
+                $servicio->setDestino($destino);
+                $servicio->setDescripcion($descripcion);
+                $servicio->setTipo($tipo);
+                $servicio->setNombre($nombre);
+                $servicio->setRegid($regid);
+                $servicio->setIdCentral($central->getIdCentral());
+                $servicio->crearServicio($servicio);
                 
-                $usuario = new Usuario();
-
-                if ($usuario->leerPorId($idUsuario)) {
-                    
-                    $servicio = new Servicio();
-                    $servicio->setEstado($estado);
-                    $servicio->setIdUsuario($idUsuario);
-                    $servicio->setFecha($fecha);
-                    $servicio->setHora($hora);
-                    $servicio->setDireccion($direccion);
-                    $servicio->setReferencia($referencia);
-                    $servicio->setLat($lat);
-                    $servicio->setLng($lng);
-                    $servicio->setServicio($serv);
-                    $servicio->setTelefono($telefono);
-                    $servicio->setDestino($destino);
-                    $servicio->setDescripcion($descripcion);
-                    $servicio->setTipo($tipo);
-                    $servicio->setIdCentral($cen->getIdCentral());
-                    $servicio->crearServicio($servicio);
-                    $this->enviarNotificacion(array($cen->getRegid()), "Tienes Un Servicio Nuevo", '01');
-                    echo json_encode(array('msj' => "exito"));
-                
-                }else{
-                    echo json_encode(array('msj' => "error"));
-                }
+                //$this->enviarNotificacion(array($cen->getRegid()), "Tienes Un Servicio Nuevo", '01');
+                echo json_encode(array('msj' => "exito"));
                 
             }
             
